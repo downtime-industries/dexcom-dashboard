@@ -10,9 +10,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
-# Expose log directory and set environment variables
-ENV LOG_DIR=/var/log/dexcom
-RUN mkdir -p $LOG_DIR
+# Expose Prometheus metrics port
+EXPOSE 8000
 
 # Define entrypoint
-CMD ["python", "main.py"]
+CMD ["python", "dexcom_prometheus_integration.py"]
