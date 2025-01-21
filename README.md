@@ -1,6 +1,6 @@
 # Dexcom Dashboard
 
-This project creates a simple tracking service for monitoring a Dexcom device via their API. To start it you will need to copy the `sample.env` to a file called `.env`. Put in your Dexcom login credentials and run `docker compose up`!
+This project creates a simple tracking service for monitoring a Dexcom insulin monitor via their API. To start it you will need to copy the `sample.env` to a file called `.env`. Put in your Dexcom login credentials and run `docker compose up`!
 
 This will start 3 services. 
 
