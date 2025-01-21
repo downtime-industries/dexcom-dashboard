@@ -25,6 +25,8 @@ PROMETHEUS_PORT = int(os.getenv("PROMETHEUS_PORT", 8000))
 
 if not DEXCOM_USERNAME or not DEXCOM_PASSWORD:
     raise ValueError("Dexcom username and password must be set in environment variables.")
+else: 
+    logging.debug(f"Dexcom credentials loaded successfully.")
 
 # Initialize Dexcom client
 dexcom = Dexcom(username=DEXCOM_USERNAME, password=DEXCOM_PASSWORD)
@@ -51,8 +53,10 @@ try:
         # Fetch the current glucose reading
         glucose_reading = dexcom.get_current_glucose_reading()
 
+        logging.debug(f"Glucose reading: {glucose_reading}")
+
         if glucose_reading:
-            # Extract reading details
+            # Extract reading detailsd
             value = glucose_reading.value
             mmol_l = glucose_reading.mmol_l
             trend_direction = glucose_reading.trend
@@ -62,7 +66,7 @@ try:
             glucose_mmol_gauge.set(mmol_l)
             trend_direction_gauge.set(trend_direction)
 
-            logging.info("Glucose metrics updated successfully.")
+            logging.debug("Glucose metrics updated successfully.")
 
         # Wait for 15 seconds before the next reading
         time.sleep(15)
