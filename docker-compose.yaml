@@ -1,0 +1,39 @@
+services:
+  dexcom-monitor:
+    build: .
+    container_name: dexcom-monitor
+    environment:
+      - DEXCOM_USERNAME=${DEXCOM_USERNAME}
+      - DEXCOM_PASSWORD=${DEXCOM_PASSWORD}
+      - PROMETHEUS_PORT=8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./logs:/var/log/dexcom
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./config/prometheus/:/etc/prometheus
+      - ./prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=$(GRAFANA_ADMIN_PASSWORD)
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./config/grafana/:/etc/grafana/provisioning/datasources
+
+
+volumes:
+  grafana-storage:
