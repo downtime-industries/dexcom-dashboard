@@ -1,6 +1,6 @@
 services:
   dexcom-monitor:
-    build: .
+    image: dtaivpp/dexcom-dashboard:latest
     container_name: dexcom-monitor
     environment:
       - DEXCOM_USERNAME=${DEXCOM_USERNAME}
