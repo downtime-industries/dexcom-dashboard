@@ -69,7 +69,7 @@ try:
             logging.debug("Glucose metrics updated successfully.")
 
         # Wait for 15 seconds before the next reading
-        time.sleep(15)
+        time.sleep(300)
 
 except Exception as e:
     logging.error(f"An error occurred: {e}")
