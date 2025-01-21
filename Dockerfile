@@ -8,10 +8,10 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
-COPY . .
+COPY main.py ./
 
 # Expose Prometheus metrics port
 EXPOSE 8000
 
 # Define entrypoint
-CMD ["python", "dexcom_prometheus_integration.py"]
+CMD ["python", "main.py"]
