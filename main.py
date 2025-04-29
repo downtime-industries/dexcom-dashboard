@@ -36,6 +36,7 @@ logging.basicConfig(
 DEXCOM_USERNAME = os.getenv("DEXCOM_USERNAME")
 DEXCOM_PASSWORD = os.getenv("DEXCOM_PASSWORD")
 PROMETHEUS_PORT = int(os.getenv("PROMETHEUS_PORT", 8000))
+INTERVAL = int(os.getenv("INTERVAL", "60"))
 
 if not DEXCOM_USERNAME or not DEXCOM_PASSWORD:
     raise ValueError("Dexcom username and password must be set in environment variables.")
@@ -82,8 +83,7 @@ try:
 
             logging.debug("Glucose metrics updated successfully.")
 
-        # Wait for 15 seconds before the next reading
-        time.sleep(300)
+        time.sleep(INTERVAL)
 
 except Exception as e:
     logging.error(f"An error occurred: {e}")
