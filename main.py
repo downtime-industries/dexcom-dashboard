@@ -35,15 +35,18 @@ logging.basicConfig(
 # Get credentials from environment variables
 DEXCOM_USERNAME = os.getenv("DEXCOM_USERNAME")
 DEXCOM_PASSWORD = os.getenv("DEXCOM_PASSWORD")
+DEXCOM_REGION = os.getenv("DEXCOM_REGION", "us")
 PROMETHEUS_PORT = int(os.getenv("PROMETHEUS_PORT", 8000))
 
 if not DEXCOM_USERNAME or not DEXCOM_PASSWORD:
     raise ValueError("Dexcom username and password must be set in environment variables.")
-else: 
+else:
     logging.debug(f"Dexcom credentials loaded successfully.")
 
 # Initialize Dexcom client
-dexcom = Dexcom(username=DEXCOM_USERNAME, password=DEXCOM_PASSWORD)
+dexcom = Dexcom(username=DEXCOM_USERNAME,
+                password=DEXCOM_PASSWORD,
+                region=DEXCOM_REGION)
 
 # Set up Prometheus metrics
 glucose_value_gauge = Gauge('glucose_value', 'Current glucose value in mg/dL')

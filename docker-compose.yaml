@@ -5,6 +5,10 @@ services:
     environment:
       - DEXCOM_USERNAME=${DEXCOM_USERNAME}
       - DEXCOM_PASSWORD=${DEXCOM_PASSWORD}
+      # See https://gagebenne.github.io/pydexcom/pydexcom.html to set
+      # region. Having the wrong region will result in a failure to
+      # authenticate
+      - DEXCOM_REGION=us
       - PROMETHEUS_PORT=8000
     ports:
       - "8000:8000"
